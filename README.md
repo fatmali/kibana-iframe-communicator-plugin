@@ -6,8 +6,44 @@
 
 ## Plugin Installation
 
-Easy install of plugin (for Kibana 5) by running:
-$KIBANA_HOME/bin/kibana-plugin install https://github.com/bondib/kibana-iframe-communicator-plugin/releases/download/v5.x/kibana-iframe-communicator-plugin-1.0.0.zip
+As kibana now has a dll hell issue with versions (it requires an exact match between plugins and kibana version) and as I do not want to release a version for each minor kibana change, please run the following:
+
+cd $KIBANA_HOME # go to your kibana home directory
+
+# IMPORTANT - SET FIRST LINE WITH THE KIBANA VERSION YOU ARE USING 
+`kibanaVersion=5.2.3  && \
+curdir=$(pwd) && \
+wget https://github.com/bondib/kibana-iframe-communicator-plugin/releases/download/v5.x/kibana-iframe-communicator-plugin-1.0.0.zip && \
+unzip "kibana-iframe-communicator-plugin-1.0.0.zip" "kibana/kibana-iframe-communicator-plugin/package.json" -d /tmp && \
+cd /tmp && \
+npm install -g json && \
+lineUpdate='this.kibana.version="'$kibanaVersion'"' && \
+json -I -f kibana/kibana-iframe-communicator-plugin/package.json -e $lineUpdate && \
+zip --update "$curdir/kibana-iframe-communicator-plugin-1.0.0.zip" "kibana/kibana-iframe-communicator-plugin/package.json" && \
+cd "$curdir" && \
+./bin/kibana-plugin install file://$curdir/kibana-iframe-communicator-plugin-1.0.0.zip && \
+rm -r kibana-iframe-communicator-plugin-1.0.0.zip`
+
+The script above downloads the plugin zip (the one kibana installs), modifes the packge.json (updates the version you gave it) of the zip and updates back the zip.
+
+If you don't have/want to run npm + json you can run the following:
+
+`curdir=$(pwd) && \
+wget https://github.com/bondib/kibana-iframe-communicator-plugin/releases/download/v5.x/kibana-iframe-communicator-plugin-1.0.0.zip && \
+unzip "kibana-iframe-communicator-plugin-1.0.0.zip" "kibana/kibana-iframe-communicator-plugin/package.json" -d /tmp && \
+cd /tmp && \
+vi kibana/kibana-iframe-communicator-plugin/package.json && \
+zip --update "$curdir/kibana-iframe-communicator-plugin-1.0.0.zip" "kibana/kibana-iframe-communicator-plugin/package.json" && \
+cd "$curdir" && \
+./bin/kibana-plugin install file://$curdir/kibana-iframe-communicator-plugin-1.0.0.zip && \
+rm -r kibana-iframe-communicator-plugin-1.0.0.zip`
+
+this will open up the editor and then manually update the following:
+`
+"kibana": {
+    "version": "UPDATE YOUR VERSION HERE"
+  }
+`
 
 
 ## development
