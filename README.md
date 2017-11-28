@@ -10,8 +10,9 @@ As kibana now has a dll hell issue with versions (it requires an exact match bet
 
 cd $KIBANA_HOME # go to your kibana home directory
 
-# IMPORTANT - SET FIRST LINE WITH THE KIBANA VERSION YOU ARE USING 
-`kibanaVersion=5.2.3  && \
+## IMPORTANT - SET FIRST LINE WITH THE KIBANA VERSION YOU ARE USING 
+<code>
+kibanaVersion=5.2.3  && \
 curdir=$(pwd) && \
 wget https://github.com/bondib/kibana-iframe-communicator-plugin/releases/download/v5.x/kibana-iframe-communicator-plugin-1.0.0.zip && \
 unzip "kibana-iframe-communicator-plugin-1.0.0.zip" "kibana/kibana-iframe-communicator-plugin/package.json" -d /tmp && \
@@ -22,13 +23,15 @@ json -I -f kibana/kibana-iframe-communicator-plugin/package.json -e $lineUpdate 
 zip --update "$curdir/kibana-iframe-communicator-plugin-1.0.0.zip" "kibana/kibana-iframe-communicator-plugin/package.json" && \
 cd "$curdir" && \
 ./bin/kibana-plugin install file://$curdir/kibana-iframe-communicator-plugin-1.0.0.zip && \
-rm -r kibana-iframe-communicator-plugin-1.0.0.zip`
+rm -r kibana-iframe-communicator-plugin-1.0.0.zip
+</code>
 
 The script above downloads the plugin zip (the one kibana installs), modifes the packge.json (updates the version you gave it) of the zip and updates back the zip.
 
 If you don't have/want to run npm + json you can run the following:
 
-`curdir=$(pwd) && \
+<code>
+curdir=$(pwd) && \
 wget https://github.com/bondib/kibana-iframe-communicator-plugin/releases/download/v5.x/kibana-iframe-communicator-plugin-1.0.0.zip && \
 unzip "kibana-iframe-communicator-plugin-1.0.0.zip" "kibana/kibana-iframe-communicator-plugin/package.json" -d /tmp && \
 cd /tmp && \
@@ -36,14 +39,15 @@ vi kibana/kibana-iframe-communicator-plugin/package.json && \
 zip --update "$curdir/kibana-iframe-communicator-plugin-1.0.0.zip" "kibana/kibana-iframe-communicator-plugin/package.json" && \
 cd "$curdir" && \
 ./bin/kibana-plugin install file://$curdir/kibana-iframe-communicator-plugin-1.0.0.zip && \
-rm -r kibana-iframe-communicator-plugin-1.0.0.zip`
+rm -r kibana-iframe-communicator-plugin-1.0.0.zip
+</code>
 
 this will open up the editor and then manually update the following:
-`
+<code>
 "kibana": {
     "version": "UPDATE YOUR VERSION HERE"
   }
-`
+</code>
 
 
 ## development
