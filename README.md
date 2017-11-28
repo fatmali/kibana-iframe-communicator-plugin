@@ -7,7 +7,7 @@
 ## Plugin Installation
 
 Easy install of plugin (for Kibana 5) by running:
-$KIBANA_HOME/bin/kibana-plugin install https://github.com/bondib/kibana-iframe-communicator-plugin/releases/download/v5.x/kibana-iframe-communicator-plugin.zip
+$KIBANA_HOME/bin/kibana-plugin install https://github.com/bondib/kibana-iframe-communicator-plugin/releases/download/v5.x/kibana-iframe-communicator-plugin-1.0.0.zip
 
 
 ## development
