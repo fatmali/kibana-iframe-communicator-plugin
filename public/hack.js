@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import uiModules from 'ui/modules';
 import 'ui/courier';
-import rison from 'ui/utils/rison';
+import rison from 'rison-node';
 import FilterBarQueryFilterProvider from 'ui/filter_bar/query_filter';
 
 
@@ -24,8 +24,7 @@ uiModules.get('kibana').run(function ($rootScope, $location) {
 
 // hook into dashboard kibana lifecycle
 uiModules.get('app/dashboard', ['kibana/courier','ngRoute']).run(function ($rootScope, Private, $location, courier, $route, kbnUrl, getAppState, globalState, timefilter) {
-  
-  
+       
     // parses url
     function getQueryVariable(variable, query) {        
         let vars = query.split('&');
@@ -39,9 +38,7 @@ uiModules.get('app/dashboard', ['kibana/courier','ngRoute']).run(function ($root
     }
     
     let doNotSendRouteChangeNotificationToParent = false;
-  
-    //const queryFilter = Private(FilterBarQueryFilterProvider);
-  
+
     // Create IE + others compatible message event handler
     let eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
     let eventer = window[eventMethod];
@@ -73,7 +70,7 @@ uiModules.get('app/dashboard', ['kibana/courier','ngRoute']).run(function ($root
         switch(topic)
         {
             case "searchRequest": // in case we got a search request:
-                console.debug("Search request...")       
+            console.debug("Search request...")       
                 // parse the app + global states:
                 let passedInAppState = rison.decode(getQueryVariable("_a", urlData));
                 let passedInGlobalState = rison.decode(getQueryVariable("_g", urlData));  
@@ -81,7 +78,7 @@ uiModules.get('app/dashboard', ['kibana/courier','ngRoute']).run(function ($root
                 // get the local kibana app + global states:
                 let localAppState = getAppState(); 
                 let localGlobalState = globalState; 
-            
+
                 // and now lets apply the filters:                
                 localAppState.query.query_string.query = passedInAppState.query.query_string.query;
                 //localGlobalState
@@ -100,17 +97,20 @@ uiModules.get('app/dashboard', ['kibana/courier','ngRoute']).run(function ($root
                 doNotSendRouteChangeNotificationToParent = true; // we do not want to send to our parent of the change (as he was the one who iniated this...)
                 
                 $location.url(finalUri);
-                
-                // go and get the data with the new filters:
+                // go and get the data with the new filters:           
+                //localAppState.save();
                 courier.fetch();
                 
+
+
+
                 // now we can re-listen and notify of INTERNAL changes:
                 setTimeout(() => {doNotSendRouteChangeNotificationToParent = false;}, 1000);
-                       
+
                 return;
             case "routeRequest": // in case we were requsted to route to a different area:  
-                
-                console.debug("Route request...");
+
+            console.debug("Route request...");
                 lastReceievedData = null; // make sure we don't trigger the lastReceievedData  in routeChangeSuccess
                 startAcceptingEvents = false; // we stop accepting events (we keep the last request anyways) - as accepting changes while loading a dashboard results in     
                 indexOfDashSign =  urlData.indexOf("#");
@@ -120,14 +120,14 @@ uiModules.get('app/dashboard', ['kibana/courier','ngRoute']).run(function ($root
                 // now we can re-listen and notify of INTERNAL changes:
                 setTimeout(() => {doNotSendRouteChangeNotificationToParent = false;}, 1000);
                 return;
-        }
-        
-        
-       console.warn("Invalid message topic " + topic + "!");
-        
-        
-        
-    };
+            }
+
+
+            console.warn("Invalid message topic " + topic + "!");
+
+
+
+        };
 
     // Listen to message from parent (or any other) window
     eventer(messageEvent, eventMessageHandler, false);
@@ -165,7 +165,7 @@ uiModules.get('app/dashboard', ['kibana/courier','ngRoute']).run(function ($root
     
     
 
-     $rootScope.$on('$routeChangeSuccess', () => 
+    $rootScope.$on('$routeChangeSuccess', () => 
     {
         console.debug("RECIVED $routeChangeSuccess!"); 
         if(!startAcceptingEvents) // starting to recieve external events (we use this event as it's the last event possible to wait for)
@@ -178,51 +178,5 @@ uiModules.get('app/dashboard', ['kibana/courier','ngRoute']).run(function ($root
         }
     });
 
-    
-
-
-    
-  
-  // example of how to hook to general key events:
-  /*$(document.body).on('keypress', function (event) {
-    if (event.which === 58) {
-        //alert(document.location);
-       
-        let state = getAppState(); 
-        let global = globalState; 
-
-
-        let prompt = window.prompt("Change uri", $location.url());
-        if (prompt != null)
-        {
-            $location.url(prompt);             
-        }
-        prompt = window.prompt("filter part","");
-        state.query.query_string.query = prompt;
-        
-        courier.fetch();
-        return;
-        
-        prompt = window.prompt("Change uri", $location.url());
-
-        if (prompt != null && prompt != $location.url()) {
-            //$location.url(prompt);
-            
-                   
-            debugger;
-            kbnUrl.change(prompt);            
-        }                
-        return;
-        const filters = queryFilter.getFilters();
-        console.log(JSON.stringify(filters))
-        const dash = $route.current.locals.dash;
-        debugger;
-        dash.searchSource.set('filter', filters);        
-        courier.fetch();
-    }
-    });
-  */
-  
-  
 });
 

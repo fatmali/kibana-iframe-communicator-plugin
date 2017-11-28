@@ -1,6 +1,6 @@
-# kibana_iframe_communicator_plugin
+# kibana-5.x-iframe-communicator-plugin
 
-> A kibana plugin that exposes kibana internals so when kibana is hosted inside an IFrame - an outside application can easily communicate with kibana internals
+> A kibana (5.x compatible - for other versions switch branch) plugin to demonstrate how can one communicate directly with Kibana hosted inside an IFrame, without the need to reload the iframe
 
 ---
 
@@ -9,23 +9,30 @@
 Easy install of plugin by running (from the kibana install folder):
 bin/kibana plugin -i iframe_communicator_plugin -u https://github.com/bondib/kibana-iframe-communicator-plugin/archive/master.zip
 
+
 ## development
 
 See the [kibana contributing guide](https://github.com/elastic/kibana/blob/master/CONTRIBUTING.md) for instructions setting up your development environment. Once you have completed that, use the following npm tasks.
 
-<dl>
-  <dt><code>npm start</code></dt>
-  <dd>Start kibana and have it include this plugin</dd>
+  - `npm start`
 
-  <dt><code>npm run build</code></dt>
-  <dd>Build a distributable archive</dd>
+    Start kibana and have it include this plugin
 
-  <dt><code>npm run test:browser</code></dt>
-  <dd>Run the browser tests in a real web browser</dd>
+  - `npm start -- --config kibana.yml`
 
-  <dt><code>npm run test:server</code></dt>
-  <dd>Run the server tests using mocha</dd>
-</dl>
+    You can pass any argument that you would normally send to `bin/kibana` by putting them after `--` when running `npm start`
+
+  - `npm run build`
+
+    Build a distributable archive
+
+  - `npm run test:browser`
+
+    Run the browser tests in a real web browser
+
+  - `npm run test:server`
+
+    Run the server tests using mocha
 
 For more information about any of these commands run `npm run ${task} -- --help`.
 
