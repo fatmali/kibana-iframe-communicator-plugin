@@ -1,4 +1,4 @@
-# kibana_iframe_communicator_plugin
+# kibana_iframe_communicator_plugin (4.x compatible)
 
 > A kibana plugin that exposes kibana internals so when kibana is hosted inside an IFrame - an outside application can easily communicate with kibana internals
 
