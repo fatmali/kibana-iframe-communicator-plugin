@@ -29,8 +29,10 @@ rm -r kibana-iframe-communicator-plugin-1.0.0.zip
 
 
 The script above downloads the plugin zip (the one kibana installs), modifes the packge.json (updates the version you gave it) of the zip and updates back the zip.
+Finally, the plugin is installed using kibana-plugin install. YEHA!
 
-If you don't have/want to run npm + json you can run the following:
+
+If you don't have or want to run npm + json you can run the following:
 
 
 <code>
@@ -45,12 +47,15 @@ cd "$curdir" && \
 rm -r kibana-iframe-communicator-plugin-1.0.0.zip
 </code>
 
-this will open up the editor and then manually update the following:
+
+this will open up the editor and then manually update the following in the package.json file:
 <code>
 "kibana": {
     "version": "UPDATE YOUR VERSION HERE"
   }
 </code>
+
+Save & close and the plugin will get installed.
 
 
 ## development
