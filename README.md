@@ -18,7 +18,7 @@ curdir=$(pwd) && \
 wget https://github.com/bondib/kibana-iframe-communicator-plugin/releases/download/v5.x/kibana-iframe-communicator-plugin-1.0.0.zip && \
 unzip "kibana-iframe-communicator-plugin-1.0.0.zip" "kibana/kibana-iframe-communicator-plugin/package.json" -d /tmp && \
 cd /tmp && \
-line='s/KIBANA-VERSION/'$kibanaVersion'/'
+line='s/KIBANA-VERSION/'$kibanaVersion'/' && \
 sed -i -e $line kibana/kibana-iframe-communicator-plugin/package.json && \
 zip --update "$curdir/kibana-iframe-communicator-plugin-1.0.0.zip" "kibana/kibana-iframe-communicator-plugin/package.json" && \
 cd "$curdir" && \
