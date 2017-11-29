@@ -18,9 +18,8 @@ curdir=$(pwd) && \
 wget https://github.com/bondib/kibana-iframe-communicator-plugin/releases/download/v5.x/kibana-iframe-communicator-plugin-1.0.0.zip && \
 unzip "kibana-iframe-communicator-plugin-1.0.0.zip" "kibana/kibana-iframe-communicator-plugin/package.json" -d /tmp && \
 cd /tmp && \
-npm install -g json && \
-lineUpdate='this.kibana.version="'$kibanaVersion'"' && \
-json -I -f kibana/kibana-iframe-communicator-plugin/package.json -e $lineUpdate && \
+line='s/KIBANA-VERSION/'$kibanaVersion'/'
+sed -i -e $line kibana/kibana-iframe-communicator-plugin/package.json && \
 zip --update "$curdir/kibana-iframe-communicator-plugin-1.0.0.zip" "kibana/kibana-iframe-communicator-plugin/package.json" && \
 cd "$curdir" && \
 ./bin/kibana-plugin install file://$curdir/kibana-iframe-communicator-plugin-1.0.0.zip && \
@@ -31,24 +30,6 @@ rm -r kibana-iframe-communicator-plugin-1.0.0.zip
 The script above downloads the plugin zip (the one kibana installs), modifes the packge.json (updates the version you gave it) of the zip and updates back the zip.
 Finally, the plugin is installed using kibana-plugin install. YEHA!
 
-
-If you don't have or want to run npm + json you can run the following:
-
-
-``` bash
-curdir=$(pwd) && \
-wget https://github.com/bondib/kibana-iframe-communicator-plugin/releases/download/v5.x/kibana-iframe-communicator-plugin-1.0.0.zip && \
-unzip "kibana-iframe-communicator-plugin-1.0.0.zip" "kibana/kibana-iframe-communicator-plugin/package.json" -d /tmp && \
-cd /tmp && \
-vi kibana/kibana-iframe-communicator-plugin/package.json && \
-zip --update "$curdir/kibana-iframe-communicator-plugin-1.0.0.zip" "kibana/kibana-iframe-communicator-plugin/package.json" && \
-cd "$curdir" && \
-./bin/kibana-plugin install file://$curdir/kibana-iframe-communicator-plugin-1.0.0.zip && \
-rm -r kibana-iframe-communicator-plugin-1.0.0.zip
-```
-
-
-this will open up the editor and then manually update the following in the package.json file:
 <code>
 "kibana": {
     "version": "UPDATE YOUR VERSION HERE"
