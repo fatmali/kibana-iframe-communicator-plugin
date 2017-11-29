@@ -1,9 +1,7 @@
 import $ from 'jquery';
-import uiModules from 'ui/modules';
 import 'ui/courier';
-import rison from 'rison-node';
-import FilterBarQueryFilterProvider from 'ui/filter_bar/query_filter';
-
+let uiModules = require("ui/modules");
+let rison = require("rison-node");
 
 /*// hook into angular's application lifecycle example
 uiModules.get('kibana').run(function ($rootScope, $location) {
@@ -20,7 +18,6 @@ uiModules.get('kibana').run(function ($rootScope, $location) {
     console.log($location.url());
   }
 });*/
-
 
 // hook into dashboard kibana lifecycle
 uiModules.get('app/dashboard', ['kibana/courier','ngRoute']).run(function ($rootScope, Private, $location, courier, $route, kbnUrl, getAppState, globalState, timefilter) {
