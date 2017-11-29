@@ -38,6 +38,14 @@ Finally, the plugin is installed using kibana-plugin install. YEHA!
 
 Save & close and the plugin will get installed.
 
+## How I made this plugin compatible with all 5.x versions?
+
+As I mentioned, Kibana created a dll hell issue.
+Furthermore - between MINOR versions 5.4 and 5.5 they switched from default exports to named exports - amazing yes...
+So again - instead of supporting different versions - I switched to using require() instead of using import.
+
+The 2nd thing is the install script above that modifies the exact kibana version in package.json - before kibana actually install the plugin.
+
 
 ## development
 
