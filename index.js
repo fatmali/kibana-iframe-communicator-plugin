@@ -6,9 +6,13 @@ export default function (kibana) {
     require: ['elasticsearch'],
     name: 'kibana-iframe-communicator-plugin',
     uiExports: {
+
+
+
       hacks: [
         'plugins/kibana-iframe-communicator-plugin/hack'
       ]
+
     },
 
     config(Joi) {
@@ -16,6 +20,5 @@ export default function (kibana) {
         enabled: Joi.boolean().default(true),
       }).default();
     },
-
   });
-};
+}

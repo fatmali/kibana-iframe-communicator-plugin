@@ -1,25 +1,33 @@
 {
   "name": "kibana-iframe-communicator-plugin",
-  "version": "1.0.1",
+  "version": "0.0.0",
   "description": "A kibana plugin to demonstrate how can one communicate directly with Kibana hosted inside an IFrame, without the need to reload the iframe",
   "main": "index.js",
   "kibana": {
-    "version": "KIBANA-VERSION"
+    "version": "kibana",
+    "templateVersion": "8.0.0"
   },
   "scripts": {
-    "lint": "eslint",
+    "lint": "eslint **/*.js",
     "start": "plugin-helpers start",
     "test:server": "plugin-helpers test:server",
     "test:browser": "plugin-helpers test:browser",
     "build": "plugin-helpers build",
-    "postinstall": "plugin-helpers postinstall"
+    "postinstall": "plugin-helpers postinstall",
+    "gather-info": "node gather-info.js"
   },
   "devDependencies": {
-    "@elastic/eslint-config-kibana": "0.0.2",
-    "@elastic/plugin-helpers": "^6.0.0",
-    "babel-eslint": "4.1.8",
-    "eslint": "1.10.3",
-    "eslint-plugin-mocha": "1.1.0",
+    "@elastic/eslint-config-kibana": "^0.14.0",
+    "@elastic/eslint-import-resolver-kibana": "^0.9.0",
+    "@elastic/plugin-helpers": "^8.0.1",
+    "babel-eslint": "^8.0.2",
+    "eslint": "^4.11.0",
+    "eslint-plugin-babel": "^4.1.1",
+    "eslint-plugin-import": "^2.3.0",
+    "eslint-plugin-jest": "^21.3.2",
+    "eslint-plugin-mocha": "^4.9.0",
+    "eslint-plugin-prefer-object-spread": "^1.2.1",
+    "eslint-plugin-react": "^7.0.1",
     "expect.js": "^0.3.1"
   }
 }
