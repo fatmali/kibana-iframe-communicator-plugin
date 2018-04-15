@@ -1,4 +1,5 @@
-# kibana-5.x-iframe-communicator-plugin
+# PLACEHOLDER FOR kibana-7.x-iframe-communicator-plugin
+# NOT WORKING YET
 
 > A kibana (5.x compatible - for other versions switch branch) plugin to demonstrate how can one communicate directly with Kibana hosted inside an IFrame, without the need to reload the iframe
 
