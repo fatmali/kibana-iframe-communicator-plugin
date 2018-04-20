@@ -1,7 +1,13 @@
 import $ from 'jquery';
+import _ from 'lodash';
 import 'ui/courier';
+import 'ui/index_patterns';
+import 'ui/modals/confirm_modal_promise';
 const uiModules = require('ui/modules');
 const rison = require('rison-node');
+
+$;
+_;
 
 /*// hook into angular's application lifecycle example
 uiModules.get('kibana').run(function ($rootScope, $location) {
